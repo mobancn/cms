@@ -1,0 +1,166 @@
+
+<div class="demoTable">
+  搜索ID：
+  <div class="layui-inline">
+    <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+  </div>
+  <button class="layui-btn" data-type="reload">搜索</button>
+
+  <div class="layui-btn-group demoTable">
+    <button class="layui-btn" data-type="add">添加</button> 
+    <button class="layui-btn" data-type="del">批量删除</button>
+    <button class="layui-btn" data-type="undel">全部恢复</button>  
+  </div>
+</div>
+
+<table class="layui-hide" id="demo" lay-filter="demo"></table> 
+
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>         
+
+<script type="text/html" id="checkboxTpl">
+  <!-- 这里的 checked 的状态 要提取表格的数据 status 项 -->
+  <input type="checkbox" name="lock" value="{{d.id}}" title="显示" lay-filter="lockDemo" {{ d.status == 1 ? 'checked' : '' }}>
+</script>   
+
+<script>
+  layui.use('table', function(){
+    var table = layui.table,$ = layui.$;
+
+  //方法级渲染
+  table.render({
+    elem: '#demo'
+    ,url: '{:url("datalist")}'
+    ,cols: [[
+    {checkbox: true, fixed: true}
+    ,{field:'id', title: 'ID', width:80, sort: true, fixed: true}
+    ,{field:'name', title: '名称',sort: true }
+    ,{field:'icon', title: '图标',sort: true }
+    ,{field:'c', title: '控制器',sort: true }
+    ,{field:'a', title: '方法',sort: true }
+    ,{field:'tip', title: '类型',sort: true }
+    ,{field: 'display', title: '状态', templet:'#checkboxTpl',fixed: 'right'}
+    ,{fixed: 'right',title: '操作', width:178, align:'center', toolbar: '#barDemo'}
+    ]]
+    ,id: 'idTest'
+    ,page: true
+    ,height: 580
+  });
+  
+  //监听表格多选或全选复选框选择,设置一个数组dellist把checkbox 的id传入，并转为字符串
+  var dellist=new Array();
+
+  table.on('checkbox(demo)', function(obj){
+    dellist.push(obj.data.id); 
+    // console.log(dellist.toString());
+    // console.log(obj.data.id); //选中行的相关数据
+  });
+
+  //监听工具条
+  table.on('tool(demo)', function(obj){
+    var data = obj.data;
+    if(obj.event === 'detail'){
+      layer.msg('ID：'+ data.id + ' 的查看操作');
+    } else if(obj.event === 'del'){
+      layer.confirm('真的删除行么', function(index){
+        $.ajax({
+          type: 'POST',
+          url: "{:url('delete')}",
+          data:{'id':data.id},
+          success: function(data){
+            if(data.state==1){
+                //删除这一行
+                obj.del();
+                //关闭弹框
+                layer.close(index);
+                layer.msg("删除成功", {icon: 6});
+              }else{
+                layer.msg("删除失败", {icon: 5});
+              }
+            },    
+          }); 
+      });
+    } else if(obj.event === 'edit'){
+      var index =layer.open({
+        type: 2, 
+        content: '{:url("edit")}?id='+data.id,
+      }); 
+      layer.full(index);//全屏，要把弹出层变为index
+    }
+  });
+  
+  active = {
+    // 添加按钮
+    add: function(){ 
+      var index =layer.open({
+        type: 2, 
+        content: '{:url("add")}',
+      }); 
+        layer.full(index);//全屏，要把弹出层变为index
+      },
+
+    //查询
+    reload: function(){
+      var demoReload = $('#demoReload');
+      table.reload('testReload', {
+        page: {
+          curr: 1 //重新从第 1 页开始
+        }
+        ,where: {
+          key: {
+            id: demoReload.val()
+          }
+        }
+      });
+    },
+
+    //批量删除
+    del:function(){
+      //监听选了多少个多选框
+      var checkStatus = table.checkStatus('idTest')
+      ,data = checkStatus.data;
+      if(data.length == 0) { 
+        layer.alert("请选择至少一项！"); 
+        return; 
+      } 
+
+      layer.confirm('确认要批量删除吗？', function () {
+        $.ajax({
+          type: 'POST',
+          url: "{:url('alldel')}",
+          data:{'id':dellist.toString()},
+          success: function(data){
+            layer.msg('已删除!', {icon: 1, time: 1000}); //消息弹层1秒后消失
+            window.location.reload(); //重新加载页面,显示所有数据
+          },
+          error:function(data) {
+            console.log(data.msg);
+          },    
+        });      
+      });
+    },
+
+    //批量恢复
+    undel:function(){
+      $.post('{:url("undel")}');
+      window.location.reload(); 
+    },
+
+  //ajax结尾
+};
+
+
+
+
+
+$('.demoTable .layui-btn').on('click', function(){
+  var type = $(this).data('type');
+  active[type] ? active[type].call(this) : '';
+});
+});
+</script>
+
+

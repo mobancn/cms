@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>layout 后台大布局 - Layui</title>
+  <link rel="stylesheet" href="__STATIC__/layui/css/layui.css">
+  <script src="__STATIC__/layui/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+<div style="padding: 15px;">
+
+<form class="layui-form" action="">
+<!-- 用户id隐藏 使用三原判断的方式来用同一个模板 $Request 或用 :input('id')要大写开头-->
+{$Request.param.id?'<input type="hidden" value="'.$info['id'].'" name="id">':''}
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">名称</label>
+    <div class="layui-input-block">
+      <input type="text" name="name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="{$info.name|default=''}">
+    </div>
+  </div>
+
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">备注</label>
+    <div class="layui-input-block">
+      <input type="text" name="email" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="{$info.desc|default=''}">
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <ul id="demo"></ul>
+  </div>
+
+
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+
+<script type="text/javascript">
+
+layui.use(['tree', 'layer','form','jquery'], function(){
+    var layer = parent.layer === undefined ? layui.layer : top.layer,form=layui.form,$ = layui.jquery;
+
+    layui.tree({
+        elem: '#demo',
+        check: 'checkbox',              //输入checkbox则生成带checkbox的tree, 默认不带checkbox
+        skin: 'as',                     //设定皮肤
+        drag: true,                     //点击每一项时是否生成提示信息
+        checkboxName: 'selectedArr',    //复选框的name属性值
+        checkboxStyle: "",              //设置复选框的样式，必须为字符串，css样式怎么写就怎么写
+        click: function(item){          //节点点击事件
+            layer.msg('当前节名称：'+ item.name + '<br>全部参数：'+ JSON.stringify(item));
+            console.log(item);
+        },
+        nodes: [{
+                "id": "1",
+                "name": "父节点1",
+                "children": [{
+                        "id": "11",
+                        "name": "子节点11"
+                    },
+                    {
+                        "id": "12",
+                        "name": "子节点12"
+                    }
+                ]
+            },
+            {
+                "id": "2",
+                "name": "父节点2",
+                "children": [{
+                    "id": "21",
+                    "name": "子节点21",
+                    "children": [{
+                        "id": "211",
+                        "name": "子节点211"
+                    }]
+                }]
+            }
+        ],
+    });
+
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+    layer.msg(JSON.stringify(data.field));
+    return false;
+  });
+
+
+});
+
+</script>
+
+
+</div>
+</div>
+
+</body>
+</html>

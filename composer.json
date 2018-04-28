@@ -23,7 +23,8 @@
         "topthink/think-image": "1.*",
         "topthink/think-queue": "1.*",
         "topthink/think-migration": "1.*",
-        "topthink/think-oracle": "1.*"
+        "topthink/think-oracle": "1.*",
+        "tp5er/tp5-databackup":"1.*"
     },
     "autoload": {
         "psr-4": {

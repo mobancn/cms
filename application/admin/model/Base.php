@@ -9,12 +9,12 @@ use traits\model\SoftDelete;
 class Base extends Model
 {
 	// 软删除
-	use SoftDelete;
+	// use SoftDelete;
 
 	//自动时间
 	protected $autoWriteTimestamp=true;
 
-	protected $hidden=['delete_time','password'];
+	protected $hidden=['password'];
 
 	//格式化日期
 	protected $dateFormat = "Y/m/d";

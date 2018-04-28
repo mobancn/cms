@@ -14,13 +14,4 @@ class Index extends Base
         return $this -> view -> fetch('/index');
     }
 
-    public function test()
-    {
-        import('Monolog.Logger');
-    	$t=new Logger('name');
-        $t->pushHandler(new StreamHandler('\your.log',Logger::WARNING));
-    	
-    }
-
-
 }

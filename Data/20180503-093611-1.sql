@@ -65,6 +65,46 @@ INSERT INTO `cms_cate` VALUES ('18', '国际', '0', '0', '', '1516151316', '1516
 INSERT INTO `cms_cate` VALUES ('19', '军事', '0', '18', '', '1516172531', '1516172531');
 
 -- -----------------------------
+-- Table structure for `cms_config`
+-- -----------------------------
+DROP TABLE IF EXISTS `cms_config`;
+CREATE TABLE `cms_config` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '变量名',
+  `group` varchar(30) NOT NULL DEFAULT '' COMMENT '分组',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '变量标题',
+  `tip` varchar(100) NOT NULL DEFAULT '' COMMENT '变量描述',
+  `type` varchar(30) NOT NULL DEFAULT '' COMMENT '类型:string,text,int,bool,array,datetime,date,file',
+  `value` text NOT NULL COMMENT '变量值',
+  `content` text NOT NULL COMMENT '变量字典数据',
+  `rule` varchar(100) NOT NULL DEFAULT '' COMMENT '验证规则',
+  `extend` varchar(255) NOT NULL DEFAULT '' COMMENT '扩展属性',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='系统配置';
+
+-- -----------------------------
+-- Records of `cms_config`
+-- -----------------------------
+INSERT INTO `cms_config` VALUES ('1', 'name', 'basic', 'Site name', '请填写站点名称', 'string', 'FastAdmin', '', 'required', '');
+INSERT INTO `cms_config` VALUES ('2', 'beian', 'basic', 'Beian', '粤ICP备15054802号-4', 'string', '', '', '', '');
+INSERT INTO `cms_config` VALUES ('3', 'cdnurl', 'basic', 'Cdn url', '如果静态资源使用第三方云储存请配置该值', 'string', '', '', '', '');
+INSERT INTO `cms_config` VALUES ('4', 'version', 'basic', 'Version', '如果静态资源有变动请重新配置该值', 'string', '1.0.1', '', 'required', '');
+INSERT INTO `cms_config` VALUES ('5', 'timezone', 'basic', 'Timezone', '', 'string', 'Asia/Shanghai', '', 'required', '');
+INSERT INTO `cms_config` VALUES ('6', 'forbiddenip', 'basic', 'Forbidden ip', '一行一条记录', 'text', '', '', '', '');
+INSERT INTO `cms_config` VALUES ('7', 'languages', 'basic', 'Languages', '', 'array', '{\"backend\":\"zh-cn\",\"frontend\":\"zh-cn\"}', '', 'required', '');
+INSERT INTO `cms_config` VALUES ('8', 'fixedpage', 'basic', 'Fixed page', '请尽量输入左侧菜单栏存在的链接', 'string', 'dashboard', '', 'required', '');
+INSERT INTO `cms_config` VALUES ('9', 'categorytype', 'dictionary', 'Category type', '', 'array', '{\"default\":\"Default\",\"page\":\"Page\",\"article\":\"Article\",\"test\":\"Test\"}', '', '', '');
+INSERT INTO `cms_config` VALUES ('10', 'configgroup', 'dictionary', 'Config group', '', 'array', '{\"basic\":\"Basic\",\"email\":\"Email\",\"dictionary\":\"Dictionary\",\"user\":\"User\",\"example\":\"Example\"}', '', '', '');
+INSERT INTO `cms_config` VALUES ('11', 'mail_type', 'email', 'Mail type', '选择邮件发送方式', 'select', '1', '[\"Please select\",\"SMTP\",\"Mail\"]', '', '');
+INSERT INTO `cms_config` VALUES ('12', 'mail_smtp_host', 'email', 'Mail smtp host', '错误的配置发送邮件会导致服务器超时', 'string', 'smtp.qq.com', '', '', '');
+INSERT INTO `cms_config` VALUES ('13', 'mail_smtp_port', 'email', 'Mail smtp port', '(不加密默认25,SSL默认465,TLS默认587)', 'string', '465', '', '', '');
+INSERT INTO `cms_config` VALUES ('14', 'mail_smtp_user', 'email', 'Mail smtp user', '（填写完整用户名）', 'string', '10000', '', '', '');
+INSERT INTO `cms_config` VALUES ('15', 'mail_smtp_pass', 'email', 'Mail smtp password', '（填写您的密码）', 'string', 'password', '', '', '');
+INSERT INTO `cms_config` VALUES ('16', 'mail_verify_type', 'email', 'Mail vertify type', '（SMTP验证方式[推荐SSL]）', 'select', '2', '[\"None\",\"TLS\",\"SSL\"]', '', '');
+INSERT INTO `cms_config` VALUES ('17', 'mail_from', 'email', 'Mail from', '', 'string', '10000@qq.com', '', '', '');
+
+-- -----------------------------
 -- Table structure for `cms_group`
 -- -----------------------------
 DROP TABLE IF EXISTS `cms_group`;
@@ -108,7 +148,7 @@ CREATE TABLE `cms_log` (
   `update_time` int(11) DEFAULT NULL,
   `delete_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=346 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=518 DEFAULT CHARSET=utf8;
 
 -- -----------------------------
 -- Records of `cms_log`
@@ -458,6 +498,178 @@ INSERT INTO `cms_log` VALUES ('342', 'admin', 'dbackup', 'export', '', '1', '', 
 INSERT INTO `cms_log` VALUES ('343', 'admin', 'dbackup', 'datalist', '', '1', '', '0', '1524819466', '1524819466', '');
 INSERT INTO `cms_log` VALUES ('344', 'admin', 'dbackup', 'export', '', '1', '', '0', '1524819510', '1524819510', '');
 INSERT INTO `cms_log` VALUES ('345', 'admin', 'dbackup', 'export', '', '1', '', '0', '1524819564', '1524819564', '');
+INSERT INTO `cms_log` VALUES ('346', 'admin', 'dbackup', 'datalist', '', '1', '', '0', '1524819622', '1524819622', '');
+INSERT INTO `cms_log` VALUES ('347', 'admin', 'dbackup', 'importlist', '', '1', '', '0', '1524819949', '1524819949', '');
+INSERT INTO `cms_log` VALUES ('348', 'admin', 'dbackup', 'import', '', '1', '', '0', '1524819953', '1524819953', '');
+INSERT INTO `cms_log` VALUES ('349', 'admin', 'index', 'index', '', '1', '', '0', '1524878768', '1524878768', '');
+INSERT INTO `cms_log` VALUES ('350', 'admin', 'menu', 'showmenu', '', '1', '', '0', '1524878768', '1524878768', '');
+INSERT INTO `cms_log` VALUES ('351', 'admin', 'main', 'index', '', '1', '', '0', '1524878768', '1524878768', '');
+INSERT INTO `cms_log` VALUES ('352', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524878772', '1524878772', '');
+INSERT INTO `cms_log` VALUES ('353', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1524878772', '1524878772', '');
+INSERT INTO `cms_log` VALUES ('354', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524880447', '1524880447', '');
+INSERT INTO `cms_log` VALUES ('355', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524880450', '1524880450', '');
+INSERT INTO `cms_log` VALUES ('356', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524880535', '1524880535', '');
+INSERT INTO `cms_log` VALUES ('357', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524880537', '1524880537', '');
+INSERT INTO `cms_log` VALUES ('358', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524880538', '1524880538', '');
+INSERT INTO `cms_log` VALUES ('359', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524882068', '1524882068', '');
+INSERT INTO `cms_log` VALUES ('360', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524882075', '1524882075', '');
+INSERT INTO `cms_log` VALUES ('361', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524882162', '1524882162', '');
+INSERT INTO `cms_log` VALUES ('362', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524882164', '1524882164', '');
+INSERT INTO `cms_log` VALUES ('363', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524882165', '1524882165', '');
+INSERT INTO `cms_log` VALUES ('364', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524882195', '1524882195', '');
+INSERT INTO `cms_log` VALUES ('365', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524882562', '1524882562', '');
+INSERT INTO `cms_log` VALUES ('366', 'admin', 'dbackup', 'dbackup', '?page=1&limit=10', '1', '', '0', '1524882563', '1524882563', '');
+INSERT INTO `cms_log` VALUES ('367', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524882568', '1524882568', '');
+INSERT INTO `cms_log` VALUES ('368', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1524882568', '1524882568', '');
+INSERT INTO `cms_log` VALUES ('369', 'admin', 'menu', 'index', '', '1', '', '0', '1524883468', '1524883468', '');
+INSERT INTO `cms_log` VALUES ('370', 'admin', 'menu', 'datalist', '?page=1&limit=10', '1', '', '0', '1524883468', '1524883468', '');
+INSERT INTO `cms_log` VALUES ('371', 'admin', 'menu', 'add', '', '1', '', '0', '1524883478', '1524883478', '');
+INSERT INTO `cms_log` VALUES ('372', 'admin', 'menu', 'save', '', '1', '', '0', '1524884950', '1524884950', '');
+INSERT INTO `cms_log` VALUES ('373', 'admin', 'menu', 'index', '', '1', '', '0', '1524884952', '1524884952', '');
+INSERT INTO `cms_log` VALUES ('374', 'admin', 'menu', 'datalist', '?page=1&limit=10', '1', '', '0', '1524884952', '1524884952', '');
+INSERT INTO `cms_log` VALUES ('375', 'admin', 'index', 'index', '', '1', '', '0', '1524884954', '1524884954', '');
+INSERT INTO `cms_log` VALUES ('376', 'admin', 'menu', 'showmenu', '', '1', '', '0', '1524884954', '1524884954', '');
+INSERT INTO `cms_log` VALUES ('377', 'admin', 'main', 'index', '', '1', '', '0', '1524884955', '1524884955', '');
+INSERT INTO `cms_log` VALUES ('378', 'admin', 'config', 'index', '', '1', '', '0', '1524884958', '1524884958', '');
+INSERT INTO `cms_log` VALUES ('379', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524887552', '1524887552', '');
+INSERT INTO `cms_log` VALUES ('380', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1524887553', '1524887553', '');
+INSERT INTO `cms_log` VALUES ('381', 'admin', 'dbackup', 'index', '', '1', '', '0', '1524887557', '1524887557', '');
+INSERT INTO `cms_log` VALUES ('382', 'admin', 'dbackup', 'dbackup', '?page=1&limit=10', '1', '', '0', '1524887557', '1524887557', '');
+INSERT INTO `cms_log` VALUES ('383', 'admin', 'index', 'index', '', '1', '', '0', '1524901288', '1524901288', '');
+INSERT INTO `cms_log` VALUES ('384', 'admin', 'menu', 'showmenu', '', '1', '', '0', '1524901288', '1524901288', '');
+INSERT INTO `cms_log` VALUES ('385', 'admin', 'main', 'index', '', '1', '', '0', '1524901288', '1524901288', '');
+INSERT INTO `cms_log` VALUES ('386', 'admin', 'config', 'index', '', '1', '', '0', '1524901669', '1524901669', '');
+INSERT INTO `cms_log` VALUES ('387', 'admin', 'menu', 'datalist', '?page=1&limit=10', '1', '', '0', '1524901669', '1524901669', '');
+INSERT INTO `cms_log` VALUES ('388', 'admin', 'config', 'index', '', '1', '', '0', '1524901688', '1524901688', '');
+INSERT INTO `cms_log` VALUES ('389', 'admin', 'menu', 'datalist', '?page=1&limit=10', '1', '', '0', '1524901688', '1524901688', '');
+INSERT INTO `cms_log` VALUES ('390', 'admin', 'config', 'index', '', '1', '', '0', '1524901689', '1524901689', '');
+INSERT INTO `cms_log` VALUES ('391', 'admin', 'menu', 'datalist', '?page=1&limit=10', '1', '', '0', '1524901690', '1524901690', '');
+INSERT INTO `cms_log` VALUES ('392', 'admin', 'config', 'index', '', '1', '', '0', '1524901711', '1524901711', '');
+INSERT INTO `cms_log` VALUES ('393', 'admin', 'config', 'index', '', '1', '', '0', '1524901736', '1524901736', '');
+INSERT INTO `cms_log` VALUES ('394', 'admin', 'config', 'datalist', '?page=1&limit=10', '1', '', '0', '1524901736', '1524901736', '');
+INSERT INTO `cms_log` VALUES ('395', 'admin', 'config', 'index', '', '1', '', '0', '1524901739', '1524901739', '');
+INSERT INTO `cms_log` VALUES ('396', 'admin', 'config', 'datalist', '?page=1&limit=10', '1', '', '0', '1524901739', '1524901739', '');
+INSERT INTO `cms_log` VALUES ('397', 'admin', 'config', 'index', '', '1', '', '0', '1524901774', '1524901774', '');
+INSERT INTO `cms_log` VALUES ('398', 'admin', 'config', 'datalist', '?page=1&limit=10', '1', '', '0', '1524901774', '1524901774', '');
+INSERT INTO `cms_log` VALUES ('399', 'admin', 'config', 'index', '', '1', '', '0', '1524901775', '1524901775', '');
+INSERT INTO `cms_log` VALUES ('400', 'admin', 'config', 'datalist', '?page=1&limit=10', '1', '', '0', '1524901775', '1524901775', '');
+INSERT INTO `cms_log` VALUES ('401', 'admin', 'config', 'index', '', '1', '', '0', '1524901776', '1524901776', '');
+INSERT INTO `cms_log` VALUES ('402', 'admin', 'config', 'datalist', '?page=1&limit=10', '1', '', '0', '1524901777', '1524901777', '');
+INSERT INTO `cms_log` VALUES ('403', 'admin', 'config', 'datalist', '', '1', '', '0', '1524901789', '1524901789', '');
+INSERT INTO `cms_log` VALUES ('404', 'admin', 'config', 'datalist', '', '1', '', '0', '1524901818', '1524901818', '');
+INSERT INTO `cms_log` VALUES ('405', 'admin', 'config', 'datalist', '', '1', '', '0', '1524901864', '1524901864', '');
+INSERT INTO `cms_log` VALUES ('406', 'admin', 'config', 'datalist', '', '1', '', '0', '1524901866', '1524901866', '');
+INSERT INTO `cms_log` VALUES ('407', 'admin', 'config', 'datalist', '', '1', '', '0', '1524901867', '1524901867', '');
+INSERT INTO `cms_log` VALUES ('408', 'admin', 'config', 'datalist', '', '1', '', '0', '1524901868', '1524901868', '');
+INSERT INTO `cms_log` VALUES ('409', 'admin', 'config', 'datalist', '', '1', '', '0', '1524901872', '1524901872', '');
+INSERT INTO `cms_log` VALUES ('410', 'admin', 'config', 'datalist', '', '1', '', '0', '1524901907', '1524901907', '');
+INSERT INTO `cms_log` VALUES ('411', 'admin', 'config', 'index', '', '1', '', '0', '1524901917', '1524901917', '');
+INSERT INTO `cms_log` VALUES ('412', 'admin', 'config', 'datalist', '?page=1&limit=10', '1', '', '0', '1524901917', '1524901917', '');
+INSERT INTO `cms_log` VALUES ('413', 'admin', 'config', 'datalist', '?page=2&limit=10', '1', '', '0', '1524901928', '1524901928', '');
+INSERT INTO `cms_log` VALUES ('414', 'admin', 'config', 'datalist', '?page=1&limit=10', '1', '', '0', '1524901930', '1524901930', '');
+INSERT INTO `cms_log` VALUES ('415', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525244427', '1525244427', '');
+INSERT INTO `cms_log` VALUES ('416', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525244428', '1525244428', '');
+INSERT INTO `cms_log` VALUES ('417', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525246195', '1525246195', '');
+INSERT INTO `cms_log` VALUES ('418', 'admin', 'dbackup', 'dbackup', '?page=1&limit=10', '1', '', '0', '1525246195', '1525246195', '');
+INSERT INTO `cms_log` VALUES ('419', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525250633', '1525250633', '');
+INSERT INTO `cms_log` VALUES ('420', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525250633', '1525250633', '');
+INSERT INTO `cms_log` VALUES ('421', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525250634', '1525250634', '');
+INSERT INTO `cms_log` VALUES ('422', 'admin', 'dbackup', 'dbackup', '?page=1&limit=10', '1', '', '0', '1525250635', '1525250635', '');
+INSERT INTO `cms_log` VALUES ('423', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525250716', '1525250716', '');
+INSERT INTO `cms_log` VALUES ('424', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525250717', '1525250717', '');
+INSERT INTO `cms_log` VALUES ('425', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525250718', '1525250718', '');
+INSERT INTO `cms_log` VALUES ('426', 'admin', 'dbackup', 'dbackup', '?page=1&limit=10', '1', '', '0', '1525250718', '1525250718', '');
+INSERT INTO `cms_log` VALUES ('427', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525250739', '1525250739', '');
+INSERT INTO `cms_log` VALUES ('428', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525250740', '1525250740', '');
+INSERT INTO `cms_log` VALUES ('429', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525250741', '1525250741', '');
+INSERT INTO `cms_log` VALUES ('430', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525250946', '1525250946', '');
+INSERT INTO `cms_log` VALUES ('431', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525250999', '1525250999', '');
+INSERT INTO `cms_log` VALUES ('432', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525251003', '1525251003', '');
+INSERT INTO `cms_log` VALUES ('433', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525251004', '1525251004', '');
+INSERT INTO `cms_log` VALUES ('434', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525251005', '1525251005', '');
+INSERT INTO `cms_log` VALUES ('435', 'admin', 'dbackup', 'dbackup', '?page=1&limit=10', '1', '', '0', '1525251005', '1525251005', '');
+INSERT INTO `cms_log` VALUES ('436', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525251011', '1525251011', '');
+INSERT INTO `cms_log` VALUES ('437', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525251011', '1525251011', '');
+INSERT INTO `cms_log` VALUES ('438', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525251012', '1525251012', '');
+INSERT INTO `cms_log` VALUES ('439', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525251073', '1525251073', '');
+INSERT INTO `cms_log` VALUES ('440', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525251344', '1525251344', '');
+INSERT INTO `cms_log` VALUES ('441', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525251344', '1525251344', '');
+INSERT INTO `cms_log` VALUES ('442', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525251345', '1525251345', '');
+INSERT INTO `cms_log` VALUES ('443', 'admin', 'dbackup', 'dbackup', '?page=1&limit=10', '1', '', '0', '1525251346', '1525251346', '');
+INSERT INTO `cms_log` VALUES ('444', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525251357', '1525251357', '');
+INSERT INTO `cms_log` VALUES ('445', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525251357', '1525251357', '');
+INSERT INTO `cms_log` VALUES ('446', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525251445', '1525251445', '');
+INSERT INTO `cms_log` VALUES ('447', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525251445', '1525251445', '');
+INSERT INTO `cms_log` VALUES ('448', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525251621', '1525251621', '');
+INSERT INTO `cms_log` VALUES ('449', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525251622', '1525251622', '');
+INSERT INTO `cms_log` VALUES ('450', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525251623', '1525251623', '');
+INSERT INTO `cms_log` VALUES ('451', 'admin', 'dbackup', 'dbackup', '?page=1&limit=10', '1', '', '0', '1525251623', '1525251623', '');
+INSERT INTO `cms_log` VALUES ('452', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525251627', '1525251627', '');
+INSERT INTO `cms_log` VALUES ('453', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525251627', '1525251627', '');
+INSERT INTO `cms_log` VALUES ('454', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525251676', '1525251676', '');
+INSERT INTO `cms_log` VALUES ('455', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525251676', '1525251676', '');
+INSERT INTO `cms_log` VALUES ('456', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525251677', '1525251677', '');
+INSERT INTO `cms_log` VALUES ('457', 'admin', 'dbackup', 'dbackup', '?page=1&limit=10', '1', '', '0', '1525251677', '1525251677', '');
+INSERT INTO `cms_log` VALUES ('458', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525251681', '1525251681', '');
+INSERT INTO `cms_log` VALUES ('459', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525251682', '1525251682', '');
+INSERT INTO `cms_log` VALUES ('460', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525252110', '1525252110', '');
+INSERT INTO `cms_log` VALUES ('461', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525252110', '1525252110', '');
+INSERT INTO `cms_log` VALUES ('462', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525252112', '1525252112', '');
+INSERT INTO `cms_log` VALUES ('463', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525252112', '1525252112', '');
+INSERT INTO `cms_log` VALUES ('464', 'admin', 'dbackup', 'importlist', '', '1', '', '0', '1525252529', '1525252529', '');
+INSERT INTO `cms_log` VALUES ('465', 'admin', 'dbackup', 'index', '', '1', '', '0', '1525252664', '1525252664', '');
+INSERT INTO `cms_log` VALUES ('466', 'admin', 'dbackup', 'datalist', '?page=1&limit=10', '1', '', '0', '1525252664', '1525252664', '');
+INSERT INTO `cms_log` VALUES ('467', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525252666', '1525252666', '');
+INSERT INTO `cms_log` VALUES ('468', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525252668', '1525252668', '');
+INSERT INTO `cms_log` VALUES ('469', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525252681', '1525252681', '');
+INSERT INTO `cms_log` VALUES ('470', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525253472', '1525253472', '');
+INSERT INTO `cms_log` VALUES ('471', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525253486', '1525253486', '');
+INSERT INTO `cms_log` VALUES ('472', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525253523', '1525253523', '');
+INSERT INTO `cms_log` VALUES ('473', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525308099', '1525308099', '');
+INSERT INTO `cms_log` VALUES ('474', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525308255', '1525308255', '');
+INSERT INTO `cms_log` VALUES ('475', 'admin', 'dbackup', 'importlist', '', '1', '', '0', '1525308258', '1525308258', '');
+INSERT INTO `cms_log` VALUES ('476', 'admin', 'dbackup', 'importlist', '', '1', '', '0', '1525308259', '1525308259', '');
+INSERT INTO `cms_log` VALUES ('477', 'admin', 'dbackup', 'importlist', '', '1', '', '0', '1525308260', '1525308260', '');
+INSERT INTO `cms_log` VALUES ('478', 'admin', 'dbackup', 'importlist', '', '1', '', '0', '1525308261', '1525308261', '');
+INSERT INTO `cms_log` VALUES ('479', 'admin', 'dbackup', 'importlist', '', '1', '', '0', '1525308261', '1525308261', '');
+INSERT INTO `cms_log` VALUES ('480', 'admin', 'dbackup', 'importlist', '', '1', '', '0', '1525308268', '1525308268', '');
+INSERT INTO `cms_log` VALUES ('481', 'admin', 'dbackup', 'importlist', '', '1', '', '0', '1525308287', '1525308287', '');
+INSERT INTO `cms_log` VALUES ('482', 'admin', 'dbackup', 'importlist', '', '1', '', '0', '1525308288', '1525308288', '');
+INSERT INTO `cms_log` VALUES ('483', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525308358', '1525308358', '');
+INSERT INTO `cms_log` VALUES ('484', 'admin', 'dbackup', 'importlist', '', '1', '', '0', '1525308375', '1525308375', '');
+INSERT INTO `cms_log` VALUES ('485', 'admin', 'dbackup', 'importlist', '', '1', '', '0', '1525308660', '1525308660', '');
+INSERT INTO `cms_log` VALUES ('486', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525308790', '1525308790', '');
+INSERT INTO `cms_log` VALUES ('487', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525308983', '1525308983', '');
+INSERT INTO `cms_log` VALUES ('488', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525308986', '1525308986', '');
+INSERT INTO `cms_log` VALUES ('489', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309079', '1525309079', '');
+INSERT INTO `cms_log` VALUES ('490', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309139', '1525309139', '');
+INSERT INTO `cms_log` VALUES ('491', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309158', '1525309158', '');
+INSERT INTO `cms_log` VALUES ('492', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309306', '1525309306', '');
+INSERT INTO `cms_log` VALUES ('493', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309338', '1525309338', '');
+INSERT INTO `cms_log` VALUES ('494', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309381', '1525309381', '');
+INSERT INTO `cms_log` VALUES ('495', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309461', '1525309461', '');
+INSERT INTO `cms_log` VALUES ('496', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309534', '1525309534', '');
+INSERT INTO `cms_log` VALUES ('497', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309550', '1525309550', '');
+INSERT INTO `cms_log` VALUES ('498', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309581', '1525309581', '');
+INSERT INTO `cms_log` VALUES ('499', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309608', '1525309608', '');
+INSERT INTO `cms_log` VALUES ('500', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309763', '1525309763', '');
+INSERT INTO `cms_log` VALUES ('501', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309764', '1525309764', '');
+INSERT INTO `cms_log` VALUES ('502', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309780', '1525309780', '');
+INSERT INTO `cms_log` VALUES ('503', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309790', '1525309790', '');
+INSERT INTO `cms_log` VALUES ('504', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309796', '1525309796', '');
+INSERT INTO `cms_log` VALUES ('505', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309933', '1525309933', '');
+INSERT INTO `cms_log` VALUES ('506', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525309939', '1525309939', '');
+INSERT INTO `cms_log` VALUES ('507', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525311008', '1525311008', '');
+INSERT INTO `cms_log` VALUES ('508', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525311046', '1525311046', '');
+INSERT INTO `cms_log` VALUES ('509', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525311076', '1525311076', '');
+INSERT INTO `cms_log` VALUES ('510', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525311128', '1525311128', '');
+INSERT INTO `cms_log` VALUES ('511', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525311175', '1525311175', '');
+INSERT INTO `cms_log` VALUES ('512', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525311236', '1525311236', '');
+INSERT INTO `cms_log` VALUES ('513', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525311250', '1525311250', '');
+INSERT INTO `cms_log` VALUES ('514', 'admin', 'dbackup', 'import', '', '1', '', '0', '1525311281', '1525311281', '');
+INSERT INTO `cms_log` VALUES ('515', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525311325', '1525311325', '');
+INSERT INTO `cms_log` VALUES ('516', 'admin', 'dbackup', 'importlist', '', '1', '', '0', '1525311328', '1525311328', '');
+INSERT INTO `cms_log` VALUES ('517', 'admin', 'dbackup', 'export', '', '1', '', '0', '1525311371', '1525311371', '');
 
 -- -----------------------------
 -- Table structure for `cms_menu`
@@ -481,7 +693,7 @@ CREATE TABLE `cms_menu` (
   PRIMARY KEY (`id`),
   KEY `listorder` (`listorder`),
   KEY `parentid` (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 -- -----------------------------
 -- Records of `cms_menu`
@@ -512,6 +724,7 @@ INSERT INTO `cms_menu` VALUES ('33', '文章管理', '32', '', 'admin', 'news', 
 INSERT INTO `cms_menu` VALUES ('34', '图片管理', '32', '', 'admin', 'pic', '', '菜单', '', '999', '1', '1524643341', '1524643341', '');
 INSERT INTO `cms_menu` VALUES ('35', '分类管理', '32', '', 'admin', 'cate', '', '菜单', '', '999', '1', '1524643380', '1524643380', '');
 INSERT INTO `cms_menu` VALUES ('36', '数据库管理', '18', '', 'admin', 'dbackup', '', '菜单', '', '999', '1', '1524798718', '1524795115', '');
+INSERT INTO `cms_menu` VALUES ('37', '基本设置', '18', '', 'admin', 'config', '', '菜单', '', '999', '1', '1524884950', '1524884950', '');
 
 -- -----------------------------
 -- Table structure for `cms_news`
